@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2019a"><title>Algoritmo di PageRank</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.7999992370605px; min-height: 0px; white-space: pre-wrap; color: rgb(213, 80, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: normal; text-align: left;  }
+.S1 { margin: 15px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 17px; font-weight: bold; text-align: left;  }
+.S2 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: bold; text-align: left;  }
+.S3 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S4 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.S5 { margin: 20px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: bold; text-align: left;  }
+.S6 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: bold; text-align: left;  }
+.S7 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: normal; text-align: left;  }
+.CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S8 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 17.234001159668px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 14px;  }
+.S9 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234001159668px;  }
+.variableValue { width: 100% !important; }
+.embeddedOutputsMatrixElement,.eoOutputWrapper .matrixElement {min-height: 18px; box-sizing: border-box;}
+.embeddedOutputsMatrixElement .matrixElement,.eoOutputWrapper .matrixElement,.rtcDataTipElement .matrixElement {position: relative;}
+.matrixElement .variableValue,.rtcDataTipElement .matrixElement .variableValue {white-space: pre; display: inline-block; vertical-align: top; overflow: hidden;}
+.embeddedOutputsMatrixElement.inlineElement {}
+.embeddedOutputsMatrixElement.inlineElement .topHeaderWrapper {display: none;}
+.embeddedOutputsMatrixElement.inlineElement .veTable .body {padding-top: 0 !important; max-height: 100px;}
+.inlineElement .matrixElement {max-height: 300px;}
+.embeddedOutputsMatrixElement.rightPaneElement {}
+.rightPaneElement .matrixElement,.rtcDataTipElement .matrixElement {overflow: hidden; padding-left: 9px;}
+.rightPaneElement .matrixElement {margin-bottom: -1px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer,.eoOutputWrapper .matrixElement .valueContainer,.rtcDataTipElement .matrixElement .valueContainer {white-space: nowrap; margin-bottom: 3px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis.hide,.embeddedOutputsMatrixElement .matrixElement .verticalEllipsis.hide,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis.hide,.eoOutputWrapper .matrixElement .verticalEllipsis.hide,.rtcDataTipElement .matrixElement .valueContainer .horizontalEllipsis.hide,.rtcDataTipElement .matrixElement .verticalEllipsis.hide {display: none;}
+.embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .verticalEllipsis, .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .horizontalEllipsis {display:none;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis {margin-bottom: -3px;}
+.eoOutputWrapper .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer {cursor: default !important;}
+.embeddedOutputsVariableElement {white-space: pre-wrap; word-wrap: break-word; min-height: 18px; max-height: 250px; overflow: auto;}
+.variableElement {}
+.embeddedOutputsVariableElement.inlineElement {}
+.inlineElement .variableElement {}
+.embeddedOutputsVariableElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .variableElement {padding-top: 2px; padding-left: 9px;}
+.variableNameElement {margin-bottom: 3px; display: inline-block;}
+.matrixElement .horizontalEllipsis,.rtcDataTipElement .matrixElement .horizontalEllipsis {display: inline-block; margin-top: 3px; width: 30px; height: 12px; background-repeat: no-repeat; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAJCAYAAADO1CeCAAAAJUlEQVR42mP4//8/A70xw0i29BUDFPxnAEtTW37wWDqakIa4pQDvOOG89lHX2gAAAABJRU5ErkJggg==");}
+.matrixElement .verticalEllipsis,.textElement .verticalEllipsis,.rtcDataTipElement .matrixElement .verticalEllipsis,.rtcDataTipElement .textElement .verticalEllipsis {margin-left: 35px; width: 12px; height: 30px; background-repeat: no-repeat; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAZCAYAAAAIcL+IAAAALklEQVR42mP4//8/AzGYgWyFMECMwv8QddRS+P//KyimlmcGUOFoOI6GI/UVAgDnd8Dd4+NCwgAAAABJRU5ErkJggg==");}</style></head><body><div class = rtcContent><h1  class = 'S0'><span style=' font-weight: bold;'>Algoritmo di PageRank</span></h1><h3  class = 'S1'><span style=' font-weight: bold;'>Algoritmo di risoluzione per il calcolo del Rank di Pagine Web tramite la logica adoperata da Google</span></h3><h2  class = 'S2'><span style=' font-weight: bold;'>Sintassi</span></h2><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>[R OUT IN] = PageRank(G)</span></li></ul><h2  class = 'S5'><span style=' font-weight: bold;'>Descrizione</span></h2><h4  class = 'S6'><span>L'algoritmo di Pagerank data una matrice di adiacenza dei nodi di collegamento in un sottoinsieme di siti web G, nella forma di una matrice sparsa quadrata di valori logical, restituisce il valore di Rank, OutDegree e InDegree che indicano il fattore di popolarita' di una pagina web (PageRank), il numero di link che puntano alla pagina i-esima e che escono dalla pagina i-esima rispettivamente.</span></h4><div  class = 'S7'><span></span></div><h2  class = 'S5'><span>Esempi di Utilizzo</span></h2><div  class = 'S7'><span style=' font-weight: bold;'></span></div><div  class = 'S7'><span style=' font-weight: bold;'>Matrice G sparsa di valori logical</span></div><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>Command Line Matlab</span></li></ul><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre;"><span>[R,IN,OUT] = PageRank(sparse(logical(randi([0,1],10,10))))</span></span></div><div  class = 'S9'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="9A406EF9" data-testid="output_0" data-width="284" style="width: 314px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 284px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">R = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">10×1</span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:73,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:10,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 75px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">    0.0595
+    0.1727
+    0.1029
+    0.0839
+    0.1499
+    0.0541
+    0.0501
+    0.0868
+    0.0834
+    0.1567
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="0D15EB70" data-testid="output_1" data-width="284" style="width: 314px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 284px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">IN = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">10×1</span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:44,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:10,&quot;charsPerColumn&quot;:6}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 46px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">     6
+     4
+     5
+     4
+     2
+     5
+     2
+     3
+     3
+     5
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="EFEF6D31" data-testid="output_2" data-width="284" style="width: 314px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 284px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">OUT = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">10×1</span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:44,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:10,&quot;charsPerColumn&quot;:6}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 46px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">     3
+     6
+     3
+     4
+     6
+     2
+     2
+     4
+     4
+     5
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div></div></div></div><h2  class = 'S2'><span>Parametri di Input</span></h2><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>G</span><span> - </span><span style=' font-style: italic;'>Matrice di Adiacenza dei Nodi necessariamente sparsa e quadrata</span></li></ul><h2  class = 'S5'><span>Parametri di Output</span></h2><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>R</span><span> - </span><span style=' font-style: italic;'>Vettore colonna dei Rank delle Pagine Web</span></li><li  class = 'S4'><span style=' font-weight: bold;'>OUT</span><span> - </span><span style=' font-style: italic;'>Vettore colonna degli Outdegree delle pagine web.</span></li><li  class = 'S4'><span style=' font-weight: bold;'>IN</span><span> - </span><span style=' font-style: italic;'>Vettore colonna degli Indegree delle pagine web</span></li></ul><h2  class = 'S2'><span>Autori</span></h2><div  class = 'S7'><span style=' font-weight: bold; font-style: italic;'>Giuseppe Napolano M63000856 Raffaele Formisano M63000912 Giuseppe Romito M63000936</span></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% *Algoritmo di PageRank*
+% *Algoritmo di risoluzione per il calcolo del Rank di Pagine Web tramite la logica adoperata da Google*
+%% *Sintassi*
+%% 
+% * *[R OUT IN] = PageRank(G)*
+%% *Descrizione*
+% L'algoritmo di Pagerank data una matrice di adiacenza dei nodi di collegamento in un sottoinsieme di siti web G, nella forma di una matrice sparsa quadrata di valori logical, restituisce il valore di Rank, OutDegree e InDegree che indicano il fattore di popolarita' di una pagina web (PageRank), il numero di link che puntano alla pagina i-esima e che escono dalla pagina i-esima rispettivamente.
+% %% Esempi di Utilizzo
+% % 
+% *Matrice G sparsa di valori logical*
+%% 
+% * *Command Line Matlab*
+
+[R,IN,OUT] = PageRank(sparse(logical(randi([0,1],10,10))))
+%% Parametri di Input
+%% 
+% * *G* - _Matrice di Adiacenza dei Nodi necessariamente sparsa e quadrata_
+%% Parametri di Output
+%% 
+% * *R* - _Vettore colonna dei Rank delle Pagine Web_
+% * *OUT* - _Vettore colonna degli Outdegree delle pagine web._
+% * *IN* - _Vettore colonna degli Indegree delle pagine web_
+%% Autori
+% _*Giuseppe Napolano M63000856 Raffaele Formisano M63000912 Giuseppe Romito 
+% M63000936*_
+##### SOURCE END #####
+--></body></html>
