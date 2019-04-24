@@ -6,3 +6,4 @@ grafo.Nodes.InDegree = IN;
 grafo.Nodes.OutDegree = OUT;
 plot(grafo,'NodeColor','b','EdgeColor',[.3 .3 .3]);
 axis off
+%aaaa
