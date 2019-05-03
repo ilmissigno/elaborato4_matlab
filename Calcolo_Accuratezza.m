@@ -1,4 +1,4 @@
-function Valuta_Performance()
+function Calcolo_Accuratezza()
 %% Script dei Test di Correttezza
 %In questo script valutiamo la correttezza dell'algoritmo di pagerank
 %andando a confrontare il risultato ottenuto rispetto alla funzione

@@ -93,14 +93,15 @@ toll = checkUnderFlowTOL(TOL,R);
 
 numiter = 0; % Contatore numero iterazioni
 errore = Inf; % Errore assoluto di riferimento
-
+%rimane costante e non viene ricalcolata nel ciclo
+pGD = p*G.*N;
 %% Criterio di arresto
 while(errore>toll || numiter == NMAX)
     numiter = numiter+1;
     r_temp = R; %salvo il valore precedente per utilizzarlo nella formula
     
     %% RANK
-    R = ((p*G.*N)*r_temp) + (e*z*r_temp);
+    R = (pGD*r_temp) + (e*z*r_temp);
     %ricalcolo l'errore (assoluto) sulla soluzione attuale
     errore = norm(R-r_temp,Inf);
     %ricalcolo la convergenza
