@@ -1,7 +1,15 @@
 classdef CasiTest < matlab.unittest.TestCase
     
     methods(Test)
+        
         function TestCase1(testCase)
+            %% TEST NUMERO PARAMETRI IN INGRESSO
+            %verifica l'errore nel caso in cui il numero di parametri di
+            %ingresso e' minore di 1
+            verifyError(testCase,@()PageRank(),'Err:LESS_INPUT_ARGS');
+        end
+        
+        function TestCase2(testCase)
             %% TEST MATRICE G VUOTA
             % Verifica l'errore nel caso in cui la matrice G è vuota
             G = Richiama_Parametri();
@@ -9,7 +17,7 @@ classdef CasiTest < matlab.unittest.TestCase
             verifyError(testCase,@()PageRank(G),'Err:EmptyMatrix');
         end
         
-        function TestCase2(testCase)
+        function TestCase3(testCase)
             %% TEST MATRICE G NON SPARSA
             %Verifica l'errore nel caso in cui la matrice G non è sparsa
             
@@ -19,7 +27,7 @@ classdef CasiTest < matlab.unittest.TestCase
             
         end
         
-        function TestCase3(testCase)
+        function TestCase4(testCase)
             %% TEST MATRICE G NON FINITA
             %verifica l'errore nel caso in cui la matrice G non è finita
             G = Richiama_Parametri();
@@ -28,7 +36,7 @@ classdef CasiTest < matlab.unittest.TestCase
             
         end
         
-        function TestCase4(testCase)
+        function TestCase5(testCase)
             %% TEST MATRICE G NON QUADRATICA
             %verifica l'errore nel caso in cui la matrice G non è
             %quadratica
@@ -38,7 +46,7 @@ classdef CasiTest < matlab.unittest.TestCase
             
         end
         
-        function TestCase5(testCase)
+        function TestCase6(testCase)
             %% TEST MATRICE G NON LOGICA
             %verifica l'errore nel caso in cui G non e' logical
             G = Richiama_Parametri();
@@ -46,12 +54,7 @@ classdef CasiTest < matlab.unittest.TestCase
             verifyError(testCase,@()PageRank(G),'Err:G_NON_LOGICAL');
         end
         
-        function TestCase6(testCase)
-            %% TEST NUMERO PARAMETRI IN INGRESSO
-            %verifica l'errore nel caso in cui il numero di parametri di
-            %ingresso e' minore di 1
-            verifyError(testCase,@()PageRank(),'Err:LESS_INPUT_ARGS');
-        end
+        
         
         function TestCase7(testCase)
             %% TEST SELF LOOPS
