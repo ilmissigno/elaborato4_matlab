@@ -9,7 +9,7 @@ Il grafo ricavato dalla matrice G di adiacenza omettendo gli AutoLoop presenti
 Il valore costante di probabilità P utilizzato nell'algoritmo di PageRank
 Il fattore di Tolleranza adoperato in fase di calcolo dei Rank.
 %}
-[U,G] = surfer('https://www.apple.com/it/',100);
+[U,G] = surfer('http://www.unina.it',100);
 grafo = digraph(G','Omitselfloops');
 performance = centrality(grafo,'pagerank','FollowProbability',0.85,'Tolerance',10^-7);
 colonne = grafo.outdegree;
