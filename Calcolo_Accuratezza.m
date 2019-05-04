@@ -4,7 +4,7 @@ function Calcolo_Accuratezza()
 %andando a confrontare il risultato ottenuto rispetto alla funzione
 %centrality del MATLAB
 %{
-N.B : Nel seguente codice, la funzione centrality richiede in ingresso: 
+N.B : Nel seguente codice, la funzione centrality richiede in ingresso:
 Il grafo ricavato dalla matrice G di adiacenza omettendo gli AutoLoop presenti
 Il valore costante di probabilità P utilizzato nell'algoritmo di PageRank
 Il fattore di Tolleranza adoperato in fase di calcolo dei Rank.

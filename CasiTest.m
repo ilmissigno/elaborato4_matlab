@@ -62,8 +62,8 @@ classdef CasiTest < matlab.unittest.TestCase
             G = Richiama_Parametri();
             G = logical(G+speye(size(G)));
             verifyWarning(testCase,@()PageRank(G),'Warn:SELF_LOOPS_EXISTS');
-        end 
-    end   
+        end
+    end
 end
 
 function G = Richiama_Parametri()
